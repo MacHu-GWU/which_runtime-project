@@ -86,7 +86,7 @@ Quick Example
 ------------------------------------------------------------------------------
 .. code-block:: python
 
-    from which_runtime import runtime
+    from which_runtime.api import runtime
 
     if runtime.is_aws_lambda:
         # Lambda-specific configuration
