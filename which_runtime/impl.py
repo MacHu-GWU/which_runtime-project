@@ -57,6 +57,7 @@ class RunTimeEnum(str, enum.Enum):
     aws_glue = "aws_glue"
     aws_ec2 = "aws_ec2"
     aws_ecs = "aws_ecs"
+    vercel = "vercel"
     # special runtimes
     glue_container = "glue_container"
     unknown = "unknown"
@@ -322,6 +323,12 @@ class Runtime:
         return os.environ.get("IS_GLUE_CONTAINER", "false") == "true"
 
     @cached_property
+    def is_vercel(self) -> bool:
+        if _check_user_env_var(RunTimeEnum.vercel.value):  # pragma: no cover
+            return True
+        return os.environ.get("VERCEL", "NOTHING") == "1"
+
+    @cached_property
     def is_local(self) -> bool:
         """
         Local runtime represents a standard development environment on a personal computer or
@@ -350,6 +357,7 @@ class Runtime:
             or self.is_aws_ec2
             or self.is_aws_ecs
             or self.is_glue_container
+            or self.is_vercel
         )
         return not flag
 
@@ -387,6 +395,8 @@ class Runtime:
             return RunTimeEnum.aws_ecs.value
         if self.is_glue_container:
             return RunTimeEnum.glue_container.value
+        if self.is_vercel:
+            return RunTimeEnum.vercel.value
         if self.is_local:
             return RunTimeEnum.local.value
         return RunTimeEnum.unknown.value

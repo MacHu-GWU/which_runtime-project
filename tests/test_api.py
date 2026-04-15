@@ -31,6 +31,7 @@ def test():
     _ = _ = api.RunTimeEnum.aws_ec2.value
     _ = _ = api.RunTimeEnum.aws_ecs.value
     _ = _ = api.RunTimeEnum.glue_container.value
+    _ = _ = api.RunTimeEnum.vercel.value
     _ = _ = api.RunTimeEnum.unknown.value
 
 

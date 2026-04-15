@@ -23,6 +23,8 @@ class TestRuntime:
 
         _ = runtime.is_glue_container
 
+        _ = runtime.is_vercel
+
         assert isinstance(runtime.current_runtime, str)
 
         # none or only one of CI environment could be TRUE
